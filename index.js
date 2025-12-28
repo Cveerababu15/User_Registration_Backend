@@ -50,21 +50,21 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // 1️⃣ Find user
+    // 1️1 Find user
     const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // 2️⃣ Compare password
+    // 2️ Compare password
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // 3️⃣ Success
+    // 3️ Success
     return res.status(200).json({ message: "Login successful" });
   } catch (error) {
     console.error("Error during login:", error);
